@@ -14,7 +14,9 @@ couchTests.attachment_views= function(debug) {
 
   var db = new CouchDB("test_suite_db", {"X-Couch-Full-Commit":"false"});
   db.deleteDb();
+  print("deleted " + "test_suite_db");
   db.createDb();
+  print("created " + "test_suite_db");
   if (debug) debugger;
 
   // count attachments in a view
@@ -29,6 +31,7 @@ couchTests.attachment_views= function(debug) {
       }
     }
   }));
+  print("bulkSave makeDocs(10, 20 with attachments");
 
   db.bulkSave(makeDocs(20, 30, {
     _attachments:{

@@ -23,14 +23,32 @@ function T(arg1, arg2) {
   }
 }
 
+function T(arg1, arg2, msg) {
+  if(!arg1) {
+    error = (arg2 ? arg2 : arg1).toString() + "msg : " + msg
+    throw(error)
+  }
+}
+
+
 function runTestConsole(num, name, func) {
+    start = new Date();
   try {
+    print("running " + name);
     func();
+    end = new Date();
+    delta = (end.valueOf() - start.valueOf())/1000.0
+    result = {name:name,"status":"pass",time:delta}
+    print(JSON.stringify(result))
     print("ok " + num + " " + name);
   } catch(e) {
     msg = e.toString();
     msg = msg.replace(/\n/g, "\n    ");
     print("not ok " + num + " " + name + " " + msg);
+    end = new Date();
+    delta = (end.valueOf() - start.valueOf())/1000.0
+    result = {name:name,"status":"fail",time:delta,error:msg + ""}
+    print(JSON.stringify(result));
   }
 }
 
