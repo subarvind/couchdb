@@ -10,6 +10,9 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
+CouchDB.urlPrefix = "..";
+var couchTests = {};
+
 (function() {
   CouchHTTP.prototype.base_url = "http://127.0.0.1:5984"
 

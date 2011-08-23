@@ -429,6 +429,7 @@ function restartServer() {
   var xhr;
   try {
     CouchDB.request("POST", "/_restart");
+    print("restarted the server")
   } catch(e) {
     // this request may sometimes fail
   }
