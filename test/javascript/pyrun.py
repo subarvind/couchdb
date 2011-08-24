@@ -56,7 +56,7 @@ def sort_js_files(files):
    cli_runner = pick_file(files,"cli_runner.js")
    sorted = [json2,sha1,oauth,couch,couch_http]
    for file in files:
-      if not file in sorted:
+      if not file in sorted and file != cli_runner:
          sorted.append(file)
    sorted.append(cli_runner)
    return sorted        
@@ -130,25 +130,21 @@ if __name__ == "__main__":
     #start couchjs
     xunit = XUnitTestResult()
     command = ["../../src/couchdb/priv/couchjs","-H","merged-js-files.txt"]
-    couchjs_test_runner = Popen(command, stdout=PIPE)
+    couchjs_test_runner = Popen(command, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
     line = couchjs_test_runner.stdout.readline()
     while line:
         try:
-           print "line : {0}".format(line)
+           print line,
            obj = json.loads(line)
            if "name" in obj and "time" in obj and "status" in obj:
-              print obj
               if obj["status"] == "pass":
                  xunit.add_test(name=obj["name"], status=obj["status"], time=obj["time"])
               elif obj["status"] == "fail":
-                 xunit.add_test(name=obj["name"], status=obj["status"], time=obj["time"],errorType='couchdb.error', errorMessage=obj["error"])
+                 xunit.add_test(name=obj["name"], status=obj["status"], time=obj["time"],
+                                errorType='couchdb.error', errorMessage=obj["error"])
         except:
            pass
         line = couchjs_test_runner.stdout.readline() 
-    output = couchjs_test_runner.stdout.read()
-    if couchjs_test_runner.stderr:
-       error = couchjs_test_runner.stderr.read(s)
-       logger.error(error)
     str_time = time.strftime("%H:%M:%S", time.localtime()).replace(":", "-")
     xunit.write("report-{0}.xml".format(str_time))
     xunit.print_summary()
