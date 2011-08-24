@@ -86,7 +86,7 @@ logger = init_logger()
 
 if __name__ == "__main__":
     parser = OptionParser()
-    parser.add_option("-s", "--script", dest="script",
+    parser.add_option("-s", "--script", dest="script",default="*.js",
                       help="which script(s) to run", metavar="*.js")
     parser.add_option("-o", "--output", 
                       dest="output",help="test results will be printed out in the given format",
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     files = []
     #let' load all the scripts for now!
     base_url = "../../share/www/script/"
-    required_scripts = [base_url + "test/*.js", base_url + "json2.js", base_url + "sha1.js", base_url + "couch.js",base_url + "oauth.js",
+    required_scripts = [base_url + "test/{0}".format(script), base_url + "json2.js", base_url + "sha1.js", base_url + "couch.js",base_url + "oauth.js",
                         base_url + "couch_test_runner.js"]
     for script in required_scripts:
       found = find_files(script)
