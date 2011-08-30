@@ -92,7 +92,7 @@ if __name__ == "__main__":
                       dest="output",help="test results will be printed out in the given format",
                       default="xunit")
     parser.add_option("--timeout",dest="timeout",help="timeout limit for each test",default="30")
-    parser.add_option("-n","--node",dest="node",help="couchdb ip , defaults to 127.0.0.1",default="127.0.0.1")
+    parser.add_option("-n","--node",dest="node",help="couchdb ip , defaults to 127.0.0.1:5984",default="127.0.0.1:5984")
 
 
     options, args = parser.parse_args()
@@ -121,7 +121,7 @@ if __name__ == "__main__":
     logger.info("files matched : {0}".format(files))
     #    merged_filename = "merged-js-files-" + str(uuid.uuid4())[:5] + ".js"
     merged_filename = "merged-js-files.txt"
-    if append_files(files,merged_filename,"127.0.0.1",options.node):
+    if append_files(files,merged_filename,"127.0.0.1:5984",options.node):
        logger.info("merged all files into one file {0}".format(merged_filename))
     # verify that timeout is an integer
     # verify that output is either json or xunit , the result is going to be written to 
