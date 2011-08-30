@@ -111,3 +111,7 @@ couchdb.stdout
 
 cover/*
 INSTALL
+
+# for pyrun.py
+
+report*.xml
