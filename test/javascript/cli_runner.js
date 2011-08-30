@@ -42,12 +42,11 @@ function runTestConsole(num, name, func) {
     print(JSON.stringify(result))
 //    print("ok " + num + " " + name);
   } catch(e) {
-    msg = e.toString();
-    msg = msg.replace(/\n/g, "\n    ");
+    msg = JSON.stringify(e);
 //    print("not ok " + num + " " + name + " " + msg);
     end = new Date();
     delta = (end.valueOf() - start.valueOf())/1000.0
-    result = {name:name,"status":"fail",time:delta,error:msg + ""}
+    result = {name:name,"status":"fail",time:delta,error:msg}
     print(JSON.stringify(result));
   }
 }
