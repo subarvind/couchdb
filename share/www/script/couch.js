@@ -414,7 +414,7 @@ CouchDB.request = function(method, uri, options) {
     }
   }
   req.send(options.body || "");
-  print("openning request method: " + method + " uri: " + uri + " options: " + options);
+//  print("openning request method: " + method + " uri: " + uri + " options: " + options);
   return req;
 };
 
@@ -453,7 +453,7 @@ CouchDB.newUuids = function(n, buf) {
 };
 
 CouchDB.maybeThrowError = function(req) {
-  print("req.status : " + req.status + " responseText: " + req.responseText);
+//  print("req.status : " + req.status + " responseText: " + req.responseText);
   if (req.status >= 400) {
     try {
       var result = JSON.parse(req.responseText);
